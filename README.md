@@ -1,2 +1,54 @@
-# API-Gateway--avec--Express-JS
-Node.js API Gateway
+# API Gateway avec Express JS
+
+Ce projet implémente un API Gateway en utilisant Express JS, une infrastructure web pour Node.js.
+
+## Fonctionnalités
+
+### API Gateway
+
+- Point d'entrée unique pour les requêtes
+- Routage des requêtes vers les Microservices appropriés
+- Accès centralisé aux API avec des fonctionnalités de sécurité
+
+### Microservices
+
+- Services indépendants et autonomes
+- Modularité, évolutivité et tolérance aux pannes
+
+## Architecture
+
+
+
+   +--------------------------+      +--------------------------+
+   |       API Gateway        |      |       Microservices      |
+   +--------------------------+      +--------------------------+
+   | Point d'entrée unique    |      | Services indépendants   |
+   | Routage des requêtes     |      | et autonomes            |
+   | Accès centralisé aux     |      | Modularité, évolutivité |
+   | API, sécurité            |      | et tolérance aux pannes |
+   |                          |      |                          |
+   |                          |      |                          |
+   +--------------------------+      +--------------------------+
+
+
+## Installation
+
+Pour installer ce projet, suivez les étapes suivantes :
+
+1. Clonez ce dépôt sur votre machine.
+2. Installez les dépendances avec `npm install`.
+3. Lancez le serveur principal avec `npm run dev`.
+4. Lancez le microservice avec `npm run start`.
+
+## Utilisation
+
+Une fois le serveur démarré, vous pouvez accéder à l'API Gateway via le point d'entrée spécifié dans le fichier de configuration.
+
+## Contributeurs
+
+- moi meme 
+
+## Licence
+
+Ce projet est sous licence MIT.
+
