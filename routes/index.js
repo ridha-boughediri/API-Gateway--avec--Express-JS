@@ -1,13 +1,17 @@
-const express=require('express')
-const router =express.Router()
+const express = require('express');
+const router = express.Router();
+const axios = require('axios');
 
+router.all('/:apiName', (req, res) => {
+    console.log(req.params.apiName);
+    axios.get("http://localhost:3001/" + req.params.apiName)
+        .then((response) => {
+            res.send(response.data); 
+        })
+        .catch((error) => {
+            console.error(error);
+            res.status(500).send('Erreur lors de la requête à l\'API externe');
+        });
+});
 
-router.all('/:apiName',(req, res)=>
-
-{
-console.log(req.params.apiName)
-res.send(req.params.apiName + '\n')
-}
-)
-
-module.exports= router
+module.exports = router;
