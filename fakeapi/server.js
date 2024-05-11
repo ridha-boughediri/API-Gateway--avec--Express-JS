@@ -8,7 +8,7 @@ app.get('/fakeapi', (req, res, next) => {
     res.send('Bonjour de la fake API pour test');
 });
 
-app.get('/bogusapi', (req, res, next) => {
+app.post('/bogusapi', (req, res, next) => {
     res.send('Bogus API dit shalom');
 });
 

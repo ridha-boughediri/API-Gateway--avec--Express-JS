@@ -1,25 +1,30 @@
 const express = require('express');
 const router = express.Router();
 const axios = require('axios');
-const registry = require("./registry.json");
+const registry = require('./registry.json');
 
-router.all('/:apiName/:path', (req, res) => {
-    const apiName = req.params.apiName;
-    const path = req.params.path;
+router.all('/:apiName/:path', async (req, res) => {
+  console.log(req.params.apiName);
 
-    if (registry.services.hasOwnProperty(apiName)) {
-        const service = registry.services[apiName];
-        axios.get(`${service.url}/${path}`)
-            .then((response) => {
-                res.send(response.data); 
-            })
-            .catch((error) => {
-                console.error(error);
-                res.status(500).send('Erreur lors de la requête à l\'API externe');
-            });
-    } else {
-        res.status(404).send('Service non trouvé dans le registre');
+  if (registry.services && registry.services[req.params.apiName]) {
+    // Check if registry exists and API name is valid
+    try {
+      const response = await axios({
+        method: req.method,
+        url: registry.services[req.params.apiName].url + req.params.path,
+        headers: req.headers,
+        data: req.body,
+      });
+      res.status(response.status).json(response.data); // Set status and send response data
+    } catch (error) {
+      console.error('Error forwarding request:', error);
+      // Implement appropriate error handling (e.g., send error response to client)
     }
+  } else {
+    console.log("API name not found in registry");
+    // Handle case where API name is not found (e.g., send 404 Not Found)
+    res.status(404).json({ message: 'API not found' });
+  }
 });
 
 module.exports = router;
