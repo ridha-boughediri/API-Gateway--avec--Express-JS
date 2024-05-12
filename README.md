@@ -29,7 +29,8 @@ Ce projet implémente un API Gateway en utilisant Express JS, une infrastructure
    |                          |      |                          |
    |                          |      |                          |
    +--------------------------+      +--------------------------+
-
+## les liens 
+curl -X POST -H 'Content-Type: application/json' -d '{"apiName":"registrytest", "host":"http://localhost", "port":"3001", "url":"http://localhost:3001/"}' http://localhost:3000/register
 
 ## Installation
 
