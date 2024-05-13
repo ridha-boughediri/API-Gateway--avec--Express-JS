@@ -8,6 +8,8 @@ const fs = require("fs");
 router.all('/:apiName/:path', async (req, res) => {
     console.log(`Nom de l'API : ${req.params.apiName}`); // Journaliser le nom de l'API
 
+
+
     if (registry.services && registry.services[req.params.apiName]) {
         // Vérifier si le registre existe et si le nom de l'API est valide
         try {
@@ -30,7 +32,9 @@ router.all('/:apiName/:path', async (req, res) => {
 
 // Route pour enregistrer une nouvelle API ou mettre à jour une existante
 router.post('/register', async (req, res) => {
+
     const registrationInfo = req.body;
+    
     registry.services[registrationInfo.apiName] = { ...registrationInfo };
 
     fs.writeFile('./routes/registry.json', JSON.stringify(registry), (error) => {

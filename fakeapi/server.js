@@ -15,6 +15,7 @@ app.post('/bogusapi', (req, res, next) => {
 });
 
 // Déplacez l'appel à l'API de registre en dehors de la méthode listen
+
 axios({
     method: 'POST',
     url: `http://localhost:3000/register`,
@@ -23,6 +24,7 @@ axios({
     },
     data: {
         apiName: "registrytest",
+        protocole:"http",
         host: HOST,
         port: PORT,
         url: HOST + ":" + PORT + "/",
