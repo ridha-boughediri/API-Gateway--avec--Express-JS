@@ -7,48 +7,44 @@ const fs = require('fs');
 // Chemin correct vers registry.json
 const registryPath = path.join(__dirname, 'registry.json');
 const registry = JSON.parse(fs.readFileSync(registryPath, 'utf8'));
-const loadbalancer = require('../utils/loadbalancer'); // Chemin vers utils/loadbalancer
+const loadbalancer = require('../utils/loadbalancer');
 
 // Route pour gérer les requêtes vers les API enregistrées
 router.all('/:apiName/:path', async (req, res) => {
     console.log(`Nom de l'API : ${req.params.apiName}`); // Journaliser le nom de l'API
 
     const service = registry.services[req.params.apiName];
-    if (service) {
+    if (service && loadbalancer[service.loadBalanceStrategy]) {
         try {
-            // Utiliser le load balancer pour obtenir la nouvelle instance basée sur la stratégie
             const instance = loadbalancer[service.loadBalanceStrategy](service);
-
-            // Construire l'URL de la requête
             const url = `${instance.protocol}://${instance.host}:${instance.port}/${req.params.path}`;
 
-            // Faire la requête vers l'instance de service sélectionnée
             const response = await axios({
                 method: req.method,
                 url: url,
                 headers: req.headers,
                 data: req.body,
+                timeout: 30000
             });
 
-            // Retourner la réponse à l'utilisateur
             res.status(response.status).json(response.data);
         } catch (error) {
             console.error(`Erreur lors du transfert de la requête : ${error}`);
             res.status(500).json({ message: 'Erreur lors du transfert de la requête' });
         }
     } else {
-        console.log("Nom d'API introuvable dans le registre");
-        res.status(404).json({ message: 'API introuvable' });
+        console.error("Stratégie de load balancing introuvable ou service non défini");
+        res.status(404).json({ message: 'API ou stratégie de load balancing non trouvée' });
     }
 });
 
 // Fonction pour vérifier si une instance d'API existe déjà
 const apiAlreadyExists = (registrationInfo) => {
     let exists = false;
-    registry.services[registrationInfo.apiName].forEach(instance => {
+    const instances = registry.services[registrationInfo.apiName] || [];
+    instances.forEach(instance => {
         if (instance.url === registrationInfo.url) {
             exists = true;
-            return;
         }
     });
     return exists;

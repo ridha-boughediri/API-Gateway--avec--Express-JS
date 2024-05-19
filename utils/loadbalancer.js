@@ -21,5 +21,3 @@ loadbalancer.LEAST_USED = (service) => {
 
   return service.instances[leastUsedIndex];
 };
-
-module.exports = loadbalancer;

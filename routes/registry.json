@@ -1,32 +1,31 @@
 {
     "services": {
-      "registrytest": {
-        "loadBalanceStrategy": "ROUND_ROBIN",  
-        "index": 0,
-        "instances": [
-          {
-            "apiName": "testapi",
-            "protocol": "http",
-            "host": "localhost",
-            "port": 3001,
-            "url": "http://localhost:3001/"
-          },
-          {
-            "apiName": "testapi",
-            "protocol": "http",
-            "host": "localhost",
-            "port": 3002,
-            "url": "http://localhost:3002/"
-          },
-          {
-            "apiName": "testapi",
-            "protocol": "http",
-            "host": "localhost",
-            "port": 3003,
-            "url": "http://localhost:3003/"
-          }
-        ]
-      }
+        "registrytest": {
+            "loadBalanceStrategy": "ROUND_ROBIN",
+            "index": 0,
+            "instances": [
+                {
+                    "apiName": "registrytest",
+                    "protocol": "http",
+                    "host": "localhost",
+                    "port": 3002,
+                    "url": "http://localhost:3002/"
+                },
+                {
+                    "apiName": "registrytest",
+                    "protocol": "http",
+                    "host": "localhost",
+                    "port": 3003,
+                    "url": "http://localhost:3003/"
+                },
+                {
+                    "apiName": "registrytest",
+                    "protocol": "http",
+                    "host": "localhost",
+                    "port": 3004,
+                    "url": "http://localhost:3004/"
+                }
+            ]
+        }
     }
-  }
-  
+}
