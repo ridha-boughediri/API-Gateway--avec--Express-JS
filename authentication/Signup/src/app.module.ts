@@ -10,4 +10,3 @@ import { MailerModule } from './mailer/mailer.module';
   imports: [ConfigModule.forRoot({isGlobal : true}),AuthModule,PrismaModule, MailerModule ],
 })
 export class AppModule {}
- 

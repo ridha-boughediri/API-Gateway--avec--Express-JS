@@ -15,8 +15,14 @@
     "nodemon": "^3.1.0"
   },
   "dependencies": {
+    "@nestjs/common": "^10.3.8",
+    "@nestjs/config": "^3.2.2",
+    "@nestjs/core": "^10.3.8",
+    "@nestjs/platform-express": "^10.3.8",
     "axios": "^1.6.8",
     "helmet": "^7.1.0",
-    "init": "^0.1.2"
+    "init": "^0.1.2",
+    "nodemailer": "^6.9.13",
+    "rxjs": "^7.8.1"
   }
 }
