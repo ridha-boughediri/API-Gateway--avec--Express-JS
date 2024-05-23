@@ -1,0 +1,32 @@
+# Fichiers de configuration et d'environnement
+*.md
+*.env
+config/*.secret
+
+# Répertoires non nécessaires dans l'image Docker
+**/tests/
+**/node_modules/
+**/dist/
+build/
+tmp/
+
+# Fichiers de documentation et Markdown
+*.md
+LICENSE
+README.md
+
+# Fichiers spécifiques aux éditeurs et IDE
+.vscode/
+.idea/
+*.sublime-workspace
+
+# Autres fichiers à ignorer
+.DS_Store
+Thumbs.db
+.git
+.gitignore
+
+
+# Ignorer le fichier de variables d'environnement lors de la construction de l'image Docker
+.env
+
