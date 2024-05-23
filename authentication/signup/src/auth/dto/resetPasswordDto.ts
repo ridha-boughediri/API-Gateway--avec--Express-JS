@@ -8,9 +8,4 @@ export class resetPasswordDTO {
 
     readonly email : string
 
-    // @IsNotEmpty()
-    // readonly password :string
-
-  
-
 }

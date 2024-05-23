@@ -23,46 +23,7 @@ ENV NODE_ENV production
 # Construire l'application NestJS pour la production
 RUN npm run build
 
-# Exécution de Prisma Migrate pour appliquer les migrations de base de données
-# RUN npx prisma migrate dev
 
-# Exécution de Prisma Generate pour générer les artefacts Prisma
-# RUN npx prisma generate
-
-# Utiliser l'image officielle MySQL
-# FROM mysql:latest
-
-# Informations de connexion à la base de données (à personnaliser)
-# ENV MYSQL_ROOT_PASSWORD=root_password
-# ENV MYSQL_DATABASE=my_database
-# ENV MYSQL_USER=my_user
-# ENV MYSQL_PASSWORD=my_password
-
-# Copier les scripts SQL pour initialiser la base de données
-# COPY ./sql-scripts/ /docker-entrypoint-initdb.d/
-
-# Exposer le port MySQL (par défaut, 3306)
-# EXPOSE 3306
-
-# Utiliser l'image officielle phpMyAdmin
-# FROM phpmyadmin/phpmyadmin
-
-# Informations de connexion à la base de données MySQL (à personnaliser)
-# ENV PMA_HOST=mysql
-# ENV PMA_PORT=3306
-# ENV PMA_USER=root
-# ENV PMA_PASSWORD=
-# ENV PMA_ABSOLUTE_URI=http://localhost:8080
-
-# Exposer le port phpMyAdmin (par défaut, 80)
-# EXPOSE 8080
-
-# Commande pour exécuter l'application NestJS en mode production
-# CMD ["npm","start"]
-
-#
-# MailHog Dockerfile
-#
 
 FROM golang:1.18-alpine as builder
 
