@@ -1,36 +1,25 @@
-version: '3.1'
+ersion: '3.9'
 
 services:
   mysql:
     image: mysql:latest
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    container_name: mysql_db
+    restart: always
+    env_file:
+      - database.env
     ports:
-      - "3307:3306"
+      - target: 3306
+        published: 3306
+        protocol: tcp
+        mode: host
 
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    environment:
-      PMA_HOST: mysql
-      PMA_PORT: 3306
-      PMA_USER: ${PMA_USER}
-      PMA_PASSWORD: ${PMA_PASSWORD}
-    ports:
-      - "8080:80"
-    depends_on:
-      - mysql
-
-  nginx:
-    image: nginx:alpine
-    ports:
-      - "80:80"
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
-    depends_on:
-      - phpmyadmin
-
-volumes:
-  db-data:
+        image: phpmyadmin/phpmyadmin
+        container_name: phpmyadmin
+        ports:
+            - '4444:80'
+        restart: always
+        environment:
+            PMA_HOST: mysql
+        depends_on:
+            - mysql
