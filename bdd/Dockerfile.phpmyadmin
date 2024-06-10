@@ -1,0 +1,12 @@
+FROM phpmyadmin/phpmyadmin:latest
+
+# Variables d'environnement
+ENV PMA_HOST=mysql
+ENV PMA_PORT=3306
+ENV PMA_USER=root
+ENV PMA_PASSWORD=1234
+
+# Ajout d'un fichier de configuration Apache pour résoudre les avertissements
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
+EXPOSE 80

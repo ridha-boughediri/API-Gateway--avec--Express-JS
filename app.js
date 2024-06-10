@@ -5,7 +5,7 @@ const fs = require('fs');
 const { Kafka } = require('kafkajs');
 
 const app = express();
-const PORT = 3000;
+const PORT = 3006;
 
 // Configuration du client Kafka
 const kafka = new Kafka({
