@@ -12,7 +12,8 @@
   "license": "ISC",
   "devDependencies": {
     "express": "^4.19.2",
-    "nodemon": "^3.1.0"
+    "nodemon": "^3.1.0",
+    "prisma": "^5.15.0"
   },
   "dependencies": {
     "@nestjs/common": "^10.3.8",
