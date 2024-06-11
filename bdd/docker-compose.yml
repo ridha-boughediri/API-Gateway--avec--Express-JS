@@ -1,27 +1,28 @@
-version: '3.8'
+version: '3.5'
 
 services:
- 
-  # Service MySQL
-  mysql:
-    image: mysql:latest
+  db:
+    image: postgres:latest
+    container_name: db
+    restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: 1234
-      MYSQL_DATABASE: Signup
-      MYSQL_USER: root
-      MYSQL_PASSWORD: 1234
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: FOIREDEMARSEILLE
+    volumes:
+      - my-db:/var/lib/postgresql/data
     ports:
-      - "3307:3306"
+      - '5433:5432' # Changer le port à 5433
 
-  # Service phpMyAdmin
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    environment:
-      PMA_HOST: mysql
-      PMA_PORT: 3306
-      PMA_USER: root
-      PMA_PASSWORD: 1234
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    restart: always
     ports:
-      - "8080:80"
-    depends_on: 
-      - mysql
+      - "8083:80"  # Changer le port à 8083
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: root
+
+volumes:
+  my-db:
