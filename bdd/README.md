@@ -1,73 +1,33 @@
-Guide d'installation du Microservice
-Introduction
-Ce guide fournit des instructions étape par étape pour configurer et exécuter le microservice en utilisant Docker et NGINX.
+# Microservice PostgreSQL dans un Conteneur Docker
 
-Prérequis
-Docker et Docker Compose installés sur votre système
-Assurez-vous qu'aucun autre service n'utilise le port 80 (ou soyez prêt à modifier la configuration pour utiliser un autre port)
-Installation et Configuration
-1. Cloner le Répertoire
-Tout d'abord, clonez le répertoire sur votre machine locale :
+Ce projet configure un microservice utilisant PostgreSQL dans un conteneur Docker. Il permet de facilement démarrer, arrêter et gérer une instance PostgreSQL pour vos applications.
 
-sh
-Copy code
-git clone https://your_repo_url.git
-cd your_repo_directory
-2. Créer la Configuration NGINX
-Créez un fichier nommé nginx.conf à la racine de votre répertoire de projet et ajoutez la configuration suivante :
+## Prérequis
 
-nginx
-Copy code
-server {
-    listen 80;
+- Docker installé sur votre machine
+- Docker Compose (optionnel mais recommandé)
 
-    server_name your_domain_or_ip;
+## Contenu du Répertoire
 
-    location / {
-        proxy_pass http://your_microservice;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-    }
-}
-Remplacez your_domain_or_ip par votre domaine ou adresse IP réel(le) et your_microservice par le nom ou l'URL approprié(e) du service.
+- `Dockerfile`: Fichier de configuration Docker pour PostgreSQL
+- `docker-compose.yml`: Fichier de configuration pour Docker Compose
+- `init.sql`: Script SQL d'initialisation de la base de données (optionnel)
 
-3. Configuration Docker Compose
-Assurez-vous que votre fichier docker-compose.yml inclut la configuration suivante pour le service NGINX :
+## Configuration
 
-yaml
-Copy code
-version: '3'
-services:
-  nginx:
-    image: nginx:latest
-    ports:
-      - "80:80"
-    volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
-    depends_on:
-      - your_microservice
+### Dockerfile
 
-  your_microservice:
-    image: your_microservice_image
-    # Ajoutez d'autres configurations nécessaires pour votre microservice
-4. Démarrer les Services
-Exécutez Docker Compose pour démarrer les services :
+Le `Dockerfile` utilise l'image officielle de PostgreSQL :
 
-sh
-Copy code
-docker-compose up
-Cette commande démarrera le service NGINX ainsi que votre microservice.
+```dockerfile
+FROM postgres:13
 
-5. Accéder au Service
-Ouvrez votre navigateur et accédez à http://your_domain_or_ip. Vous devriez voir le microservice en cours d'exécution.
+# Ajoutez un script d'initialisation, si nécessaire
+COPY init.sql /docker-entrypoint-initdb.d/
 
-Dépannage
-Erreur d'adresse déjà utilisée : Si vous rencontrez une erreur bind: address already in use, assurez-vous qu'aucun autre service n'utilise le port 80. Vous pouvez modifier le mappage des ports dans le fichier docker-compose.yml si nécessaire.
-Logs : Vérifiez les journaux de Docker et NGINX pour toute erreur :
-sh
-Copy code
-docker-compose logs nginx
-Informations supplémentaires
-Pour une personnalisation et des détails supplémentaires, consultez la documentation officielle de Docker, Docker Compose et NGINX.
+# Configuration par défaut de PostgreSQL
+ENV POSTGRES_USER=admin
+ENV POSTGRES_PASSWORD=secret
+ENV POSTGRES_DB=mydatabase
+
+EXPOSE 5432
