@@ -1,0 +1,17 @@
+Commandes dans PostMan :
+
+  Creer un commande :
+    curl -X POST http://localhost:3000/orders -H "Content-Type: application/json" -d '{"id": 1, "product": "test", "quantity": 200, "price": 500}'
+
+  Obtenir toutes les commandes :
+    curl http://localhost:3000/orders
+
+
+  Creer un paiement :
+    curl -X POST http://localhost:3000/payments -H "Content-Type: application/json" -d '{"orderId": 1, "amount": 100, "method": "credit_card"}'
+
+  Obtenir tout les paiements:
+    curl http://localhost:3000/payments
+
+  Obtenir un paiement par ID de commande :
+    curl http://localhost:3000/payments/1
