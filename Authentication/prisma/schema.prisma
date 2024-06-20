@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -11,43 +11,5 @@ model User {
   id        Int      @id @default(autoincrement())
   email     String   @unique
   name      String?
-  lastname  String?
-  firstname String?
   password  String
-  role      Role     @default(USER)
-  profile   Profile?
-  tasks     Task[]
-}
-
-model Profile {
-  id     Int    @id @default(autoincrement())
-  bio    String
-  userId Int    @unique
-  user   User   @relation(fields: [userId], references: [id])
-}
-
-model Task {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  title     String
-  published Boolean  @default(false)
-  authorId  Int
-  listId    Int?
-  author    User     @relation(fields: [authorId], references: [id])
-  List      List?    @relation(fields: [listId], references: [id])
-
-  @@index([authorId], map: "Task_authorId_fkey")
-  @@index([listId], map: "Task_listId_fkey")
-}
-
-model List {
-  id    Int    @id @default(autoincrement())
-  name  String
-  tasks Task[]
-}
-
-enum Role {
-  USER
-  ADMIN
 }
