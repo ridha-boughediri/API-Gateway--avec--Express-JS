@@ -22,6 +22,34 @@ Ce projet implémente un API Gateway en utilisant Express JS, une infrastructure
 
 
 ## Architecture
+          +-------------------+
+          |       Client      |
+          +--------+----------+
+                   |
+                   v
+          +--------+----------+
+          |     API Gateway   |
+          +--------+----------+
+                   |
+       +-----------+-----------+
+       |                       |
+       v                       v
++------------------+       +----------+
+| Service d'       |       |   Kafka   | 
+| Authentification |       +----------+
++------------------+                  
+       |                                
+       v                               
+ +-----------+         +-----------+  
+ | Service de|         | Service de |  
+ | Paiement  |         | Commande   |  
+ +-----------+         +-----------+  
+                       |
+                       v
+                +-----------+
+                | Service de |
+                | Mailing    |
+                +-----------+
 
 
 
