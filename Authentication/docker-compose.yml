@@ -1,10 +1,11 @@
-version: '3'
+version: '3.9'
 
 services:
-  # Service Node.js
   web:
     image: node:18-alpine
-    build: ./signup
+    build:
+      context: .
+      dockerfile: Dockerfile
     working_dir: /usr/src/app
     ports:
       - "9000:9000"
@@ -12,38 +13,6 @@ services:
       NODE_ENV: production
     command: ["npm", "run", "start:prod"]
     volumes:
-      - ./signup:/usr/src/app
-
-  # Service MySQL
-  mysql:
-    image: mysql:latest
-    environment:
-      MYSQL_ROOT_PASSWORD: 1234
-      MYSQL_DATABASE: authentfication
-      MYSQL_USER: root2
-      MYSQL_PASSWORD: 1234
-    ports:
-      - "3307:3306"
-
-
-   # service mailer hog
-
-  mailhog:
-    image: mailhog/mailhog:latest
-    ports:
-      - "1025:1025"
-      - "8025:8025"
-   
-
-  # Service phpMyAdmin
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    environment:
-      PMA_HOST: mysql
-      PMA_PORT: 3306
-      PMA_USER: root
-      PMA_PASSWORD: 1234
-    ports:
-      - "8080:80"
-    depends_on: 
-      - mysql
+      - ./src:/usr/src/app/src
+      - ./prisma:/usr/src/app/prisma
+      - /usr/src/app/node_modules
