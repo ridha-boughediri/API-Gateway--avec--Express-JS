@@ -19,26 +19,39 @@ Ce projet implémente un API Gateway en utilisant Express JS, une infrastructure
 - Services indépendants et autonomes
 - Modularité, évolutivité et tolérance aux pannes
 
-
-### Microservices
-
-- Services indépendants et autonomes
-- Modularité, évolutivité et tolérance aux pannes
+          +-------------------+
+          |       Client      |
+          +--------+----------+
+                   |
+                   v
+          +--------+----------+
+          |     API Gateway   |
+          +--------+----------+
+                   |
+       +-----------+-----------+
+       |                       |
+       v                       v
++------+-------+           +---+------+
+| Service d'   |           | Kafka    |
+| Inscription  |           +----------+
++-----------+                    |
+       |                         |
+       v                         v
+  +------------------+       +-----------+
+  | Service d'       |       | Service de |
+  | Authentification |       | Commande   |
+  +------------------+       +-----------+
+       |                         |
+       v                         v
+  +-----------+               +-----------+
+  | Service de|               | Service de |
+  | Paiement  |               | Mailing    |
+  +-----------+               +-----------+
 
 ## Architecture
 
 
 
-   +--------------------------+      +--------------------------+
-   |       API Gateway        |      |       Microservices      |
-   +--------------------------+      +--------------------------+
-   | Point d'entrée unique    |      | Services indépendants   |
-   | Routage des requêtes     |      | et autonomes            |
-   | Accès centralisé aux     |      | Modularité, évolutivité |
-   | API, sécurité            |      | et tolérance aux pannes |
-   |                          |      |                          |
-   |                          |      |                          |
-   +--------------------------+      +--------------------------+
 ## les liens 
 curl -X POST -H 'Content-Type: application/json' -d '{"apiName":"registrytest", "host":"http://localhost", "port":"3001", "url":"http://localhost:3001/"}' http://localhost:3000/register
 
