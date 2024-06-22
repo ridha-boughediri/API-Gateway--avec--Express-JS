@@ -21,38 +21,6 @@ Ce projet implémente un API Gateway en utilisant Express JS, une infrastructure
 
 
 
-## Architecture
-          +-------------------+
-          |       Client      |
-          +--------+----------+
-                   |
-                   v
-          +--------+----------+
-          |     API Gateway   |
-          +--------+----------+
-                   |
-       +-----------+-----------+
-       |                       |
-       v                       v
-+------------------+       +----------+
-| Service d'       |       |   Kafka   | 
-| Authentification |       +----------+
-+------------------+                  
-       |                                
-       v                               
- +-----------+         +-----------+  
- | Service de|         | Service de |  
- | Paiement  |         | Commande   |  
- +-----------+         +-----------+  
-                       |
-                       v
-                +-----------+
-                | Service de |
-                | Mailing    |
-                +-----------+
-
-
-
 ## les liens 
 curl -X POST -H 'Content-Type: application/json' -d '{"apiName":"registrytest", "host":"http://localhost", "port":"3001", "url":"http://localhost:3001/"}' http://localhost:3000/register
 
