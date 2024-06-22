@@ -1,4 +1,8 @@
-# API Gateway avec Express JS
+# Projet API Gateway avec Express JS
+
+![Résumé du Projet](image_url)
+![Microservices Architecture](images/several%20microse.webp)
+
 
 Ce projet implémente un API Gateway en utilisant Express JS, une infrastructure web pour Node.js.
 
@@ -9,6 +13,12 @@ Ce projet implémente un API Gateway en utilisant Express JS, une infrastructure
 - Point d'entrée unique pour les requêtes
 - Routage des requêtes vers les Microservices appropriés
 - Accès centralisé aux API avec des fonctionnalités de sécurité
+
+### Microservices
+
+- Services indépendants et autonomes
+- Modularité, évolutivité et tolérance aux pannes
+
 
 ### Microservices
 
@@ -47,9 +57,4 @@ Une fois le serveur démarré, vous pouvez accéder à l'API Gateway via le poin
 
 ## Contributeurs
 
-- moi meme 
-
-## Licence
-
-Ce projet est sous licence MIT.
-
+- Ridha.Boughediri
